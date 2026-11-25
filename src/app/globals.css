@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-saffron: #FF6B00;
+  --color-maroon: #7A1C1C;
+  --color-sandstone: #F5E6D3;
+  --color-sandstone-accent: #E6CEB2;
+  --color-gold: #D4AF37;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+body {
+  background-color: #F5E6D3;
+  color: #3D0808;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 3D Door Perspective Utilities */
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Ayodhya Ram Mandir Subtle High-Contrast Sandstone Background */
+.ram-mandir-theme-bg {
+  background-color: #F5E6D3;
+  background-image: 
+    linear-gradient(180deg, 
+      rgba(253, 248, 243, 0.88) 0%, 
+      rgba(248, 237, 224, 0.90) 25%, 
+      rgba(245, 230, 211, 0.93) 60%, 
+      rgba(235, 215, 192, 0.96) 85%, 
+      #F5E6D3 100%),
+    url('/images/ram-mandir-main.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Mobile-optimized Sandstone Texture */
+.sandstone-pattern {
+  background-color: #F5E6D3;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 1.2px, transparent 1.2px),
+    linear-gradient(to right, rgba(122, 28, 28, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(122, 28, 28, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px, 48px 48px, 48px 48px;
+}
+
+/* Ornate Gold Foil Text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #9C7718 0%, #D4AF37 40%, #FFE885 60%, #AA881E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-saffron-maroon {
+  background: linear-gradient(135deg, #FF6B00 0%, #9E1F1F 50%, #7A1C1C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar in Temple Gold & Maroon */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F5E6D3;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D4AF37, #7A1C1C);
+  border-radius: 4px;
+  border: 1px solid #AA881E;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6B00;
+}
+
+/* Temple Arch Curvature Border */
+.temple-arch-top {
+  border-top-left-radius: 50% 30px;
+  border-top-right-radius: 50% 30px;
+}
+
+/* Glow Keyframes for Petals and Diyas */
+@keyframes petalFall {
+  0% {
+    transform: translateY(-5vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.95;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(105vh) translateX(60px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.petal-anim {
+  animation: petalFall linear infinite;
+}
+
+/* Golden Ray Divine Shimmer Animation */
+@keyframes divinePulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.divine-aura {
+  animation: divinePulse 5s ease-in-out infinite;
+}
