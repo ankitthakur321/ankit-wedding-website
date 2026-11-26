@@ -357,7 +357,7 @@ export default function WeddingInvitation() {
             </p>
 
             <h2 className="font-headingHi text-2xl sm:text-3xl text-maroon font-black">
-              {lang === 'hi' ? 'अंकित संग ईशा' : 'Ankit weds Isha'}
+              {lang === 'hi' ? '॥ शुभ विवाह ॥' : '॥ Sacred Wedding ॥'}
             </h2>
 
             <p className="text-xs text-maroon-dark font-semibold">
@@ -508,34 +508,65 @@ export default function WeddingInvitation() {
                 <DiyaIcon className="w-7 h-7" />
               </div>
 
-              {/* Couple Names */}
+              {/* Grand Sacred Union Proclamation */}
               <div className="py-4">
                 <h1 className="font-headingHi text-3xl sm:text-5xl md:text-6xl text-saffron-maroon font-black tracking-wide leading-tight">
-                  {lang === 'hi' ? 'अंकित कुमार' : 'Ankit Kumar'}
+                  {lang === 'hi' ? '॥ शुभ परिणय ॥' : '॥ Sacred Union ॥'}
                 </h1>
 
                 <div className="my-3 flex items-center justify-center gap-4">
                   <div className="h-0.5 w-16 bg-gradient-to-r from-transparent via-gold to-maroon" />
-                  <span className="font-shloka text-saffron-dark text-xl sm:text-2xl font-bold px-3 py-1 rounded-full bg-sandstone-accent/60 border border-gold/40">
-                    {lang === 'hi' ? 'संग' : 'weds'}
+                  <span className="font-shloka text-saffron-dark text-sm sm:text-base font-bold px-3.5 py-1 rounded-full bg-sandstone-accent/70 border border-gold/50 shadow-xs">
+                    {lang === 'hi' ? 'मांगलिक आमंत्रण पत्र' : 'Wedding Invitation'}
                   </span>
                   <div className="h-0.5 w-16 bg-gradient-to-l from-transparent via-gold to-maroon" />
                 </div>
 
-                <h1 className="font-headingHi text-3xl sm:text-5xl md:text-6xl text-saffron-maroon font-black tracking-wide leading-tight">
-                  {lang === 'hi' ? 'कुमारी ईशा' : 'Kumari Isha'}
-                </h1>
+                <p className="font-shloka text-maroon font-bold text-base sm:text-lg max-w-lg mx-auto italic mt-2 leading-relaxed">
+                  {lang === 'hi'
+                    ? '« यदेतद्धृदयं तव तदस्तु हृदयं मम । यदिदं हृदयं मम तदस्तु हृदयं तव ॥ »'
+                    : '“May your heart be my heart, and may my heart be yours.”'}
+                </p>
               </div>
 
-              {/* Auspicious Date Announcement */}
-              <div className="mt-4 inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-maroon text-gold font-semibold text-base sm:text-lg border border-gold shadow-md">
-                <Calendar className="w-5 h-5 text-saffron-light" />
-                <span>
-                  {lang === 'hi'
-                    ? 'सोमवार, 30 नवंबर 2026'
-                    : 'Monday, November 30, 2026'}
-                </span>
-              </div>
+              {/* Auspicious Date Announcement with Scroll Reveal Animation */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.4 }}
+                transition={{ duration: 0.8, type: 'spring', bounce: 0.25 }}
+                className="mt-4 inline-flex flex-col items-center"
+              >
+                <div className="relative group inline-flex items-center gap-2.5 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-maroon via-maroon-dark to-maroon text-gold font-semibold text-base sm:text-lg border-2 border-gold shadow-lg hover:shadow-gold-border transition-all">
+                  <motion.div
+                    animate={{ rotate: [0, 8, -8, 0] }}
+                    transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+                  >
+                    <Calendar className="w-5 h-5 text-saffron-light" />
+                  </motion.div>
+                  <span className="tracking-wide">
+                    {lang === 'hi'
+                      ? 'सोमवार, 30 नवंबर 2026'
+                      : 'Monday, November 30, 2026'}
+                  </span>
+                  {/* Subtle divine golden glimmer */}
+                  <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                    <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 animate-shimmer" />
+                  </div>
+                </div>
+
+                <motion.span
+                  initial={{ opacity: 0, y: 4 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: 0.25, duration: 0.5 }}
+                  className="mt-2 text-xs font-semibold text-saffron-dark tracking-widest uppercase flex items-center gap-1.5"
+                >
+                  <span>✨</span>
+                  <span>{lang === 'hi' ? 'शुभ विवाह की पावन तिथि' : 'Auspicious Wedding Date'}</span>
+                  <span>✨</span>
+                </motion.span>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -649,14 +680,20 @@ export default function WeddingInvitation() {
                   </div>
                 </div>
 
-                <div className="text-center mb-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 25, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: false, amount: 0.5 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="text-center mb-6"
+                >
                   <h3 className="font-headingHi text-2xl sm:text-3xl font-bold text-saffron-maroon">
                     {lang === 'hi' ? 'चिरंजीवि अंकित कुमार' : 'Chi. Ankit Kumar'}
                   </h3>
                   <p className="text-xs font-semibold text-saffron-dark uppercase tracking-widest mt-0.5">
                     {lang === 'hi' ? '(वर / Groom)' : 'Groom'}
                   </p>
-                </div>
+                </motion.div>
 
                 {/* Lineage Details */}
                 <div className="space-y-4 text-sm sm:text-base border-t border-gold/40 pt-4">
@@ -721,14 +758,20 @@ export default function WeddingInvitation() {
                   </div>
                 </div>
 
-                <div className="text-center mb-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 25, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: false, amount: 0.5 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="text-center mb-6"
+                >
                   <h3 className="font-headingHi text-2xl sm:text-3xl font-bold text-saffron-maroon">
                     {lang === 'hi' ? 'आयुष्मति कुमारी ईशा' : 'Ayushmati Kumari Isha'}
                   </h3>
                   <p className="text-xs font-semibold text-saffron-dark uppercase tracking-widest mt-0.5">
                     {lang === 'hi' ? '(वधू / Bride)' : 'Bride'}
                   </p>
-                </div>
+                </motion.div>
 
                 {/* Lineage Details */}
                 <div className="space-y-4 text-sm sm:text-base border-t border-gold/40 pt-4">
