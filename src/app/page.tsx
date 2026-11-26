@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Calendar,
   Clock,
@@ -160,7 +160,13 @@ const FloatingPetals = () => {
 export default function WeddingInvitation() {
   const [isMounted, setIsMounted] = useState(false);
   const [isDoorOpened, setIsDoorOpened] = useState(false);
+  const [isDateRevealed, setIsDateRevealed] = useState(false);
   const [lang, setLang] = useState<'hi' | 'en'>('hi');
+
+  const handleRevealDate = () => {
+    setIsDateRevealed(true);
+    triggerConfetti();
+  };
 
   // --- Countdown Logic ---
   const weddingTimestamp = new Date('2026-11-30T19:00:00+05:30').getTime();
@@ -348,19 +354,19 @@ export default function WeddingInvitation() {
           <div
             onClick={handleOpenDoor}
             onTouchEnd={handleOpenDoor}
-            className="p-6 rounded-3xl bg-sandstone-card/95 border-2 border-gold shadow-diya-glow backdrop-blur-md flex flex-col items-center gap-2.5 cursor-pointer"
+            className="p-6 rounded-3xl bg-gradient-to-b from-[#2B0505]/95 via-[#4A0D0D]/95 to-[#2A0606]/95 border-2 border-gold shadow-diya-glow backdrop-blur-md flex flex-col items-center gap-2.5 cursor-pointer"
           >
             <DiyaIcon className="w-9 h-9" />
 
-            <p className="font-shloka text-saffron-dark font-bold text-xs sm:text-sm tracking-widest">
+            <p className="font-shloka text-saffron-light font-bold text-xs sm:text-sm tracking-widest drop-shadow-sm">
               ॥ श्री गणेशाय नमः ॥
             </p>
 
-            <h2 className="font-headingHi text-2xl sm:text-3xl text-maroon font-black">
+            <h2 className="font-headingHi text-2xl sm:text-3xl text-gold-light font-black tracking-wide drop-shadow-md">
               {lang === 'hi' ? '॥ शुभ विवाह ॥' : '॥ Sacred Wedding ॥'}
             </h2>
 
-            <p className="text-xs text-maroon-dark font-semibold">
+            <p className="text-xs sm:text-sm text-sandstone-light font-medium tracking-wider">
               {lang === 'hi' ? 'शुभ विवाह आमंत्रण पत्र' : 'Sacred Wedding Invitation'}
             </p>
 
@@ -529,44 +535,94 @@ export default function WeddingInvitation() {
                 </p>
               </div>
 
-              {/* Auspicious Date Announcement with Scroll Reveal Animation */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: 20 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.4 }}
-                transition={{ duration: 0.8, type: 'spring', bounce: 0.25 }}
-                className="mt-4 inline-flex flex-col items-center"
-              >
-                <div className="relative group inline-flex items-center gap-2.5 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-maroon via-maroon-dark to-maroon text-gold font-semibold text-base sm:text-lg border-2 border-gold shadow-lg hover:shadow-gold-border transition-all">
-                  <motion.div
-                    animate={{ rotate: [0, 8, -8, 0] }}
-                    transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-                  >
-                    <Calendar className="w-5 h-5 text-saffron-light" />
-                  </motion.div>
-                  <span className="tracking-wide">
-                    {lang === 'hi'
-                      ? 'सोमवार, 30 नवंबर 2026'
-                      : 'Monday, November 30, 2026'}
-                  </span>
-                  {/* Subtle divine golden glimmer */}
-                  <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                    <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 animate-shimmer" />
-                  </div>
-                </div>
+              {/* Interactive "Tap to Reveal Date" Section */}
+              <div className="mt-4 flex flex-col items-center min-h-[90px] justify-center">
+                <AnimatePresence mode="wait">
+                  {!isDateRevealed ? (
+                    <motion.div
+                      key="hidden-prompt"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9, y: -8 }}
+                      transition={{ duration: 0.35 }}
+                      className="flex flex-col items-center"
+                    >
+                      <button
+                        type="button"
+                        onClick={handleRevealDate}
+                        className="relative group inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full bg-gradient-to-r from-saffron via-amber-600 to-maroon text-white font-bold text-sm sm:text-base border-2 border-gold shadow-diya-glow hover:scale-105 active:scale-95 transition-all cursor-pointer animate-pulse-slow"
+                      >
+                        <span className="text-base sm:text-lg">🗓️</span>
+                        <span className="font-headingEn tracking-wider font-extrabold text-gold-light">
+                          {lang === 'hi' ? 'शुभ विवाह तिथि जानें (Tap to Reveal Date)' : 'Tap to Reveal Wedding Date'}
+                        </span>
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-gold-light animate-spin" />
 
-                <motion.span
-                  initial={{ opacity: 0, y: 4 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false }}
-                  transition={{ delay: 0.25, duration: 0.5 }}
-                  className="mt-2 text-xs font-semibold text-saffron-dark tracking-widest uppercase flex items-center gap-1.5"
-                >
-                  <span>✨</span>
-                  <span>{lang === 'hi' ? 'शुभ विवाह की पावन तिथि' : 'Auspicious Wedding Date'}</span>
-                  <span>✨</span>
-                </motion.span>
-              </motion.div>
+                        {/* Golden Shimmer Beam */}
+                        <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                          <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 animate-shimmer" />
+                        </div>
+                      </button>
+
+                      <p className="mt-2 text-[11px] sm:text-xs text-saffron-dark font-medium tracking-wide">
+                        {lang === 'hi'
+                          ? '👆 पावन विवाह तिथि जानने हेतु यहाँ स्पर्श करें'
+                          : '👆 Tap above to reveal the auspicious date'}
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="revealed-date"
+                      initial={{ opacity: 0, scale: 0.75, y: 15 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.6, type: 'spring', bounce: 0.35 }}
+                      className="flex flex-col items-center"
+                    >
+                      <div
+                        onClick={triggerConfetti}
+                        className="relative group inline-flex items-center gap-3 px-6 sm:px-8 py-3 rounded-full bg-gradient-to-r from-maroon via-maroon-dark to-maroon text-gold font-semibold text-base sm:text-xl border-2 border-gold shadow-diya-glow cursor-pointer hover:scale-105 active:scale-95 transition-all"
+                        title={lang === 'hi' ? 'शुभकामनाओं के लिए क्लिक करें' : 'Click to celebrate'}
+                      >
+                        <motion.div
+                          animate={{ rotate: [0, 8, -8, 0] }}
+                          transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+                        >
+                          <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-saffron-light" />
+                        </motion.div>
+                        <span className="tracking-wide text-gold-light drop-shadow-sm font-headingHi">
+                          {lang === 'hi'
+                            ? 'सोमवार, 30 नवंबर 2026'
+                            : 'Monday, November 30, 2026'}
+                        </span>
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-saffron-light animate-pulse" />
+
+                        {/* Subtle divine golden glimmer */}
+                        <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                          <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 animate-shimmer" />
+                        </div>
+                      </div>
+
+                      <div className="mt-2 flex items-center gap-2.5">
+                        <span className="text-xs font-semibold text-saffron-dark tracking-widest uppercase flex items-center gap-1.5">
+                          <span>✨</span>
+                          <span>{lang === 'hi' ? 'शुभ विवाह की पावन तिथि' : 'Auspicious Wedding Date'}</span>
+                          <span>✨</span>
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={() => setIsDateRevealed(false)}
+                          className="text-[11px] text-maroon/70 hover:text-maroon underline transition-colors cursor-pointer"
+                          title={lang === 'hi' ? 'पुनः छिपाएं' : 'Hide Date'}
+                        >
+                          {lang === 'hi' ? '(पुनः छिपाएं ↺)' : '(Hide ↺)'}
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
 
