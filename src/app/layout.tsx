@@ -1,34 +1,5 @@
 import type { Metadata } from "next";
-import { Tiro_Devanagari_Hindi, Rozha_One, Cinzel, Poppins } from "next/font/google";
 import "./globals.css";
-
-const tiroHindi = Tiro_Devanagari_Hindi({
-  weight: "400",
-  subsets: ["latin", "devanagari"],
-  variable: "--font-tiro-hindi",
-  display: "swap",
-});
-
-const rozhaOne = Rozha_One({
-  weight: "400",
-  subsets: ["latin", "devanagari"],
-  variable: "--font-rozha",
-  display: "swap",
-});
-
-const cinzel = Cinzel({
-  weight: ["400", "600", "700", "900"],
-  subsets: ["latin"],
-  variable: "--font-cinzel",
-  display: "swap",
-});
-
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-poppins",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "॥ शुभ विवाह निमंत्रण ॥ अंकित कुमार संग कुमारी ईशा | Ankit & Isha Wedding",
@@ -67,8 +38,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="hi" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&family=Rozha+One&family=Tiro+Devanagari+Hindi&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
-        className={`${tiroHindi.variable} ${rozhaOne.variable} ${cinzel.variable} ${poppins.variable} antialiased font-body sandstone-pattern selection:bg-saffron/20 selection:text-maroon`}
+        className="antialiased font-body sandstone-pattern selection:bg-saffron/20 selection:text-maroon"
         suppressHydrationWarning
       >
         {children}

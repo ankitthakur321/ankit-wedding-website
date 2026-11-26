@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&family=Rozha+One&family=Tiro+Devanagari+Hindi&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,11 +10,15 @@
   --color-sandstone: #F5E6D3;
   --color-sandstone-accent: #E6CEB2;
   --color-gold: #D4AF37;
+  --font-tiro-hindi: 'Tiro Devanagari Hindi', 'Rozha One', serif;
+  --font-rozha: 'Rozha One', 'Tiro Devanagari Hindi', serif;
+  --font-cinzel: 'Cinzel', serif;
+  --font-poppins: 'Poppins', sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-poppins), 'Poppins', sans-serif;
 }
 
 body {
