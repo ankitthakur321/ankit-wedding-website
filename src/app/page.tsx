@@ -121,7 +121,7 @@ const TemplePillar = ({ height = 'h-full', className = '' }: { height?: string; 
 const FloatingPetals = () => {
   const petals = Array.from({ length: 18 });
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-20">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-20" style={{ contain: 'paint' }}>
       {petals.map((_, i) => {
         const left = `${(i * 5.7 + 3) % 96}%`;
         const duration = 12 + (i % 7) * 2.5;
@@ -231,7 +231,7 @@ export default function WeddingInvitation() {
   };
 
   return (
-    <main className="relative min-h-screen text-maroon-dark ram-mandir-theme-bg selection:bg-saffron selection:text-white">
+    <main className="relative min-h-screen w-full max-w-full overflow-x-hidden text-maroon-dark ram-mandir-theme-bg selection:bg-saffron selection:text-white">
       {/* Floating Marigold Petals */}
       <FloatingPetals />
 
@@ -241,7 +241,8 @@ export default function WeddingInvitation() {
       <div
         onClick={handleOpenDoor}
         onTouchEnd={handleOpenDoor}
-        className={`fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-black/85 transition-opacity duration-1000 perspective-1200 cursor-pointer ${isDoorOpened ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+        style={{ contain: 'paint' }}
+        className={`fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-black/85 transition-all duration-1000 perspective-1200 cursor-pointer ${isDoorOpened ? 'opacity-0 pointer-events-none invisible' : 'opacity-100 pointer-events-auto visible'
           }`}
       >
         {/* Left Temple Door */}
@@ -423,10 +424,10 @@ export default function WeddingInvitation() {
       {/* ============================================================== */}
       {/* 2. HERO & SACRED INVOCATION (#home) */}
       {/* ============================================================== */}
-      <section id="home" className="relative pt-6 pb-20 px-4 flex flex-col items-center text-center">
+      <section id="home" className="relative pt-6 pb-20 px-4 flex flex-col items-center text-center overflow-hidden w-full max-w-full">
         {/* Subtle Background Glow Rings */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-saffron/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[32rem] h-[32rem] bg-gold/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 sm:w-96 h-72 sm:h-96 max-w-full bg-saffron/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-80 sm:w-[32rem] h-80 sm:h-[32rem] max-w-full bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto w-full relative z-10">
           {/* Top Mantras & Divine Invocation */}
@@ -551,7 +552,7 @@ export default function WeddingInvitation() {
               <Sparkles className="w-4 h-4 text-saffron" />
             </p>
 
-            <div className="grid grid-cols-4 gap-2.5 sm:gap-4 max-w-lg w-full">
+            <div className="grid grid-cols-4 gap-1.5 xs:gap-2.5 sm:gap-4 max-w-lg w-full">
               {[
                 { labelHi: 'दिन', labelEn: 'Days', val: timeLeft.days },
                 { labelHi: 'घंटे', labelEn: 'Hours', val: timeLeft.hours },
@@ -561,15 +562,15 @@ export default function WeddingInvitation() {
                 <div
                   key={idx}
                   onClick={triggerConfetti}
-                  className="cursor-pointer group flex flex-col items-center p-3 sm:p-4 rounded-2xl bg-gradient-to-b from-maroon via-maroon-dark to-maroon text-gold border-2 border-gold shadow-md transition-transform hover:-translate-y-1 active:scale-95"
+                  className="cursor-pointer group flex flex-col items-center p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-b from-maroon via-maroon-dark to-maroon text-gold border sm:border-2 border-gold shadow-md transition-transform hover:-translate-y-1 active:scale-95"
                 >
                   <span
                     suppressHydrationWarning
-                    className="font-headingHi text-2xl sm:text-4xl font-extrabold text-gold-light group-hover:scale-105 transition-transform"
+                    className="font-headingHi text-xl sm:text-4xl font-extrabold text-gold-light group-hover:scale-105 transition-transform"
                   >
                     {isMounted ? String(item.val).padStart(2, '0') : '00'}
                   </span>
-                  <span className="text-[11px] sm:text-xs font-semibold text-sandstone-accent tracking-wider uppercase mt-1">
+                  <span className="text-[10px] sm:text-xs font-semibold text-sandstone-accent tracking-wider uppercase mt-0.5 sm:mt-1">
                     {lang === 'hi' ? item.labelHi : item.labelEn}
                   </span>
                 </div>
@@ -597,7 +598,7 @@ export default function WeddingInvitation() {
       {/* ============================================================== */}
       {/* 3. THE COUPLE & FAMILY LINEAGE (#couple — वर-वधू परिचय) */}
       {/* ============================================================== */}
-      <section id="couple" className="py-16 px-4 bg-gradient-to-b from-transparent via-sandstone-light to-transparent">
+      <section id="couple" className="py-16 px-4 bg-gradient-to-b from-transparent via-sandstone-light to-transparent overflow-hidden w-full max-w-full">
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-10">
@@ -660,7 +661,7 @@ export default function WeddingInvitation() {
                 {/* Lineage Details */}
                 <div className="space-y-4 text-sm sm:text-base border-t border-gold/40 pt-4">
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-maroon min-w-24">
+                    <span className="font-bold text-maroon min-w-20 sm:min-w-24 shrink-0">
                       {lang === 'hi' ? 'सुपौत्र :' : 'Grandson of :'}
                     </span>
                     <span className="font-medium text-maroon-dark">
@@ -671,7 +672,7 @@ export default function WeddingInvitation() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-maroon min-w-24">
+                    <span className="font-bold text-maroon min-w-20 sm:min-w-24 shrink-0">
                       {lang === 'hi' ? 'सुपुत्र :' : 'Son of :'}
                     </span>
                     <span className="font-medium text-maroon-dark">
@@ -682,7 +683,7 @@ export default function WeddingInvitation() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-maroon min-w-24">
+                    <span className="font-bold text-maroon min-w-20 sm:min-w-24 shrink-0">
                       {lang === 'hi' ? 'निवास :' : 'Address :'}
                     </span>
                     <span className="font-medium text-maroon-dark">
@@ -732,7 +733,7 @@ export default function WeddingInvitation() {
                 {/* Lineage Details */}
                 <div className="space-y-4 text-sm sm:text-base border-t border-gold/40 pt-4">
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-maroon min-w-24">
+                    <span className="font-bold text-maroon min-w-20 sm:min-w-24 shrink-0">
                       {lang === 'hi' ? 'सुपौत्री :' : 'Granddaughter :'}
                     </span>
                     <span className="font-medium text-maroon-dark">
@@ -743,7 +744,7 @@ export default function WeddingInvitation() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-maroon min-w-24">
+                    <span className="font-bold text-maroon min-w-20 sm:min-w-24 shrink-0">
                       {lang === 'hi' ? 'सुपुत्री :' : 'Daughter of :'}
                     </span>
                     <span className="font-medium text-maroon-dark">
@@ -754,7 +755,7 @@ export default function WeddingInvitation() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <span className="font-bold text-maroon min-w-24">
+                    <span className="font-bold text-maroon min-w-20 sm:min-w-24 shrink-0">
                       {lang === 'hi' ? 'निवास :' : 'Address :'}
                     </span>
                     <span className="font-medium text-maroon-dark">
@@ -790,7 +791,7 @@ export default function WeddingInvitation() {
       {/* ============================================================== */}
       {/* 4. AUSPICIOUS EVENTS TIMELINE (#events — मांगलिक कार्यक्रम) */}
       {/* ============================================================== */}
-      <section id="events" className="py-16 px-4 relative">
+      <section id="events" className="py-16 px-4 relative overflow-hidden w-full max-w-full">
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12">
@@ -991,7 +992,7 @@ export default function WeddingInvitation() {
       {/* ============================================================== */}
       {/* 5. VENUE & DIRECTIONS (#venue — परिणय स्थल एवं बारात प्रस्थान) */}
       {/* ============================================================== */}
-      <section id="venue" className="py-16 px-4 bg-sandstone-light/60">
+      <section id="venue" className="py-16 px-4 bg-sandstone-light/60 overflow-hidden w-full max-w-full">
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-10">
@@ -1110,7 +1111,7 @@ export default function WeddingInvitation() {
       {/* ============================================================== */}
       {/* 6. KIDS' INVITATION & FAMILY HOSTS (#family — बाल मनुहार) */}
       {/* ============================================================== */}
-      <section id="family" className="py-16 px-4">
+      <section id="family" className="py-16 px-4 overflow-hidden w-full max-w-full">
         <div className="max-w-5xl mx-auto space-y-12">
           {/* A. बाल मनुहार (Kids' Invitation Card) */}
           <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-sandstone-light via-sandstone to-sandstone-accent border-2 border-gold shadow-temple-card relative overflow-hidden">
@@ -1260,7 +1261,7 @@ export default function WeddingInvitation() {
         </div>
 
         {/* Ambient bottom glow */}
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-96 h-20 bg-saffron/20 blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-72 sm:w-96 max-w-full h-20 bg-saffron/20 blur-2xl pointer-events-none" />
       </footer>
     </main>
   );
