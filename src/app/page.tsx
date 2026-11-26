@@ -194,18 +194,27 @@ export default function WeddingInvitation() {
   }, [weddingTimestamp]);
 
   // Handle Opening Temple Doors (Mobile & Desktop)
-  const handleOpenDoor = () => {
+  const handleOpenDoor = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     setIsDoorOpened(true);
     triggerConfetti();
   };
 
   const triggerConfetti = () => {
-    confetti({
-      particleCount: 90,
-      spread: 75,
-      origin: { y: 0.6 },
-      colors: ['#FF6B00', '#D4AF37', '#7A1C1C', '#F5E6D3'],
-    });
+    try {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 90,
+          spread: 75,
+          origin: { y: 0.6 },
+          colors: ['#FF6B00', '#D4AF37', '#7A1C1C', '#F5E6D3'],
+        });
+      }
+    } catch (err) {
+      console.log('Confetti trigger error:', err);
+    }
   };
 
   // WhatsApp Share Handler
@@ -230,7 +239,9 @@ export default function WeddingInvitation() {
       {/* TEMPLE ENTRANCE DOORS ANIMATION (PHONE & DESKTOP) */}
       {/* ============================================================== */}
       <div
-        className={`fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-black/85 transition-opacity duration-1000 perspective-1200 ${isDoorOpened ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        onClick={handleOpenDoor}
+        onTouchEnd={handleOpenDoor}
+        className={`fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-black/85 transition-opacity duration-1000 perspective-1200 cursor-pointer ${isDoorOpened ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
           }`}
       >
         {/* Left Temple Door */}
@@ -243,7 +254,7 @@ export default function WeddingInvitation() {
             backgroundSize: 'cover',
             backgroundPosition: 'left center',
           }}
-          className="w-1/2 h-full border-r-2 border-gold shadow-2xl relative flex flex-col justify-between py-8 px-3 sm:px-6 select-none"
+          className="w-1/2 h-full border-r-2 border-gold shadow-2xl relative flex flex-col justify-between py-8 px-3 sm:px-6 select-none pointer-events-none"
         >
           {/* Decorative Inset Panel */}
           <div className="w-full h-full border-2 border-gold/40 rounded-xl relative p-3 sm:p-5 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-maroon/20 via-transparent to-black/30">
@@ -288,7 +299,7 @@ export default function WeddingInvitation() {
             backgroundSize: 'cover',
             backgroundPosition: 'right center',
           }}
-          className="w-1/2 h-full border-l-2 border-gold shadow-2xl relative flex flex-col justify-between py-8 px-3 sm:px-6 select-none"
+          className="w-1/2 h-full border-l-2 border-gold shadow-2xl relative flex flex-col justify-between py-8 px-3 sm:px-6 select-none pointer-events-none"
         >
           {/* Decorative Inset Panel */}
           <div className="w-full h-full border-2 border-gold/40 rounded-xl relative p-3 sm:p-5 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-maroon/20 via-transparent to-black/30">
@@ -330,9 +341,14 @@ export default function WeddingInvitation() {
             opacity: isDoorOpened ? 0 : 1,
           }}
           transition={{ duration: 0.5 }}
-          className="absolute z-20 flex flex-col items-center px-4 max-w-xs text-center"
+          style={{ transform: 'translateZ(100px)' }}
+          className="absolute z-20 flex flex-col items-center px-4 max-w-xs text-center pointer-events-auto"
         >
-          <div className="p-6 rounded-3xl bg-sandstone-card/95 border-2 border-gold shadow-diya-glow backdrop-blur-md flex flex-col items-center gap-2.5">
+          <div
+            onClick={handleOpenDoor}
+            onTouchEnd={handleOpenDoor}
+            className="p-6 rounded-3xl bg-sandstone-card/95 border-2 border-gold shadow-diya-glow backdrop-blur-md flex flex-col items-center gap-2.5 cursor-pointer"
+          >
             <DiyaIcon className="w-9 h-9" />
 
             <p className="font-shloka text-saffron-dark font-bold text-xs sm:text-sm tracking-widest">
@@ -348,7 +364,9 @@ export default function WeddingInvitation() {
             </p>
 
             <button
+              type="button"
               onClick={handleOpenDoor}
+              onTouchEnd={handleOpenDoor}
               className="mt-3 group relative inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-saffron via-saffron-dark to-maroon text-white font-bold text-sm border-2 border-gold shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
               <span className="animate-spin text-base">🪷</span>
